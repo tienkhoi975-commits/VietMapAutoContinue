@@ -5,31 +5,21 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     steps:
-      - name: Checkout source
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y make clang git perl xz-utils ldid
-
-      - name: Install Theos
-        run: |
-          git clone --recursive https://github.com/theos/theos.git $HOME/theos
-          git clone https://github.com/theos/sdks.git $HOME/theos/sdks
-          echo "THEOS=$HOME/theos" >> $GITHUB_ENV
-
-      - name: Build package
-        run: |
-          export THEOS=$HOME/theos
-          cd VietMapAutoContinue
-          make package
+      - name: Build with Theos
+        uses: Randomblock1/theos-action@v1
+        with:
+          project-dir: VietMapAutoContinue
+          use-rootless: false
 
       - name: Upload DEB
         uses: actions/upload-artifact@v4
         with:
           name: deb
-          path: VietMapAutoContinue/packages/*.deb
+          path: |
+            VietMapAutoContinue/packages/*.deb
