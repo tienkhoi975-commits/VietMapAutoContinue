@@ -8,18 +8,28 @@ jobs:
     runs-on: ubuntu-22.04
 
     steps:
-      - name: Checkout
+      - name: Checkout source
         uses: actions/checkout@v4
 
-      - name: Build with Theos
+      - name: Setup Theos
         uses: Randomblock1/theos-action@v1
-        with:
-          project-dir: VietMapAutoContinue
-          use-rootless: false
+
+      - name: Build package
+        env:
+          THEOS: ${{ github.workspace }}/theos
+        run: |
+          cd VietMapAutoContinue
+          make clean
+          make package FINALPACKAGE=1
+
+      - name: Show packages
+        run: |
+          echo "=== packages ==="
+          find . -name "*.deb" || true
 
       - name: Upload DEB
         uses: actions/upload-artifact@v4
         with:
           name: deb
           path: |
-            VietMapAutoContinue/packages/*.deb
+            **/*.deb
