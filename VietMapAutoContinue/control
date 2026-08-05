@@ -1,0 +1,9 @@
+Package: com.d.vietmap-autocontinue
+Name: VietMap Auto Continue
+Version: 0.1.0
+Architecture: iphoneos-arm64
+Description: Automatically activates the "Tiếp tục" button in VIETMAP LIVE when the compatibility popup appears.
+Maintainer: d
+Author: d
+Section: Tweaks
+Depends: mobilesubstrate
