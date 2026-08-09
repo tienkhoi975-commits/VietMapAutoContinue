@@ -9,4 +9,7 @@ VietMapAutoContinue_FILES = Tweak.x
 VietMapAutoContinue_CFLAGS = -fobjc-arc
 VietMapAutoContinue_FRAMEWORKS = UIKit
 
+# Rootless jailbreak
+THEOS_PACKAGE_SCHEME = rootless
+
 include $(THEOS_MAKE_PATH)/tweak.mk
